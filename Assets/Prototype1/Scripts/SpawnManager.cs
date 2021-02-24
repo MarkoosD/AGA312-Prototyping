@@ -2,29 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : JMC
 {
     public GameObject obstaclePrefab;
+    public GameObject coinPrefab;
     private Vector3 spawnPosition = new Vector3(25, 0, 0);
-    private float startDelay = 2f;
-    private float repeatRate = 2f;
-    private PlayerController playerControllerScript;
+
 
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
+        StartCoroutine("SpawnCoin");
+        StartCoroutine("SpawnObstacle");
     }
 
     void Update()
     {
-
+        
     }
 
-    void SpawnObstacle()
-    {
-        if(playerControllerScript.gameOver == false)
-        Instantiate(obstaclePrefab, spawnPosition, obstaclePrefab.transform.rotation);
+   
 
+    IEnumerator SpawnObstacle()
+    {
+        float rnd = Random.Range(2, 5);
+        yield return new WaitForSeconds(rnd);
+        Instantiate(obstaclePrefab, spawnPosition, obstaclePrefab.transform.rotation);
+        if (_GM1.gameOver == false)
+            StartCoroutine("SpawnObstacle");
+    }
+
+    IEnumerator SpawnCoin()
+    {
+        float rnd = Random.Range(1, 5);
+        Vector3 coinSpawnPos = new Vector3(25, Random.Range(1.5f, 4.5f), 0);
+        yield return new WaitForSeconds(rnd);
+        Instantiate(coinPrefab, coinSpawnPos, coinPrefab.transform.rotation);
+        if (_GM1.gameOver == false)
+            StartCoroutine("SpawnCoin");
     }
 }

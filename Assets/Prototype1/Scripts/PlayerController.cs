@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : JMC
 {
     private Rigidbody playerRb;
     private Animator playerAnim;
@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     public float gravityModifier;
     public bool isOnGround = true;
-    public bool gameOver;
     public Text timerText;
 
     private bool invinReady = true;   
@@ -26,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public Text invinText;
     public Text eText;
     public GameObject pausePanel;
+
+    public Text scoreText;
 
     void Start()
     {
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!gameOver)
+        if(!_GM1.gameOver)
         timerText.text = (Time.time.ToString("f2"));
 
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -46,12 +47,12 @@ public class PlayerController : MonoBehaviour
             PauseGame();
         }
 
-        if(Input.GetKeyDown(KeyCode.E) && invinReady && !gameOver)
+        if(Input.GetKeyDown(KeyCode.E) && invinReady && !_GM1.gameOver)
         {
             StartCoroutine("ActivatePower");
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
+        if(Input.GetKeyDown(KeyCode.Space) && isOnGround && !_GM1.gameOver)
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
@@ -63,6 +64,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {        
+
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            _GM1.score++;
+            Destroy(collision.gameObject);
+            scoreText.text = ("Score: " + _GM1.score);
+        }
+
         if(collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
@@ -75,7 +84,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                gameOver = true;
+                _GM1.gameOver = true;
                 playerAnim.SetBool("Death_b", true);
                 playerAnim.SetInteger("DeathType_int", 1);
                 explosionParticle.Play();

@@ -7,11 +7,11 @@ public class Scoring : JMC // To access functions from the Jmc script, call from
 
     public int lastRoundScore = 100;
     public int thisRoundScore = 150;
-    public int lives = 5;
+    
 
     void Start()
     {
-        if(IsGameOver(lives))
+        if(IsGameOver(_GM1.lives))
         {
             CheckScore();
         }       
