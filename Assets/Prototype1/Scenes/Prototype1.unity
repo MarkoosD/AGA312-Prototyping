@@ -1291,6 +1291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a375352a0c74cd4e84c5ef9d4fd1ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  citySprite: {fileID: 21300000, guid: 66ce0fda7508547d2be6b20eac53f119, type: 3}
 --- !u!65 &835818924
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1641,7 +1642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e32c7c2f82c994f955632c3cb3e5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 2582297489278048986, guid: 67a05fd75079af648ba450c6a8f6ce17, type: 3}
+  forrestObstaclePrefab: {fileID: 2582297489278048986, guid: 67a05fd75079af648ba450c6a8f6ce17, type: 3}
+  cityObstaclePrefab: {fileID: 8308091180296611635, guid: e35cbfae698b6474591ca6f2537f28b9, type: 3}
   coinPrefab: {fileID: 7235081806772683350, guid: 3bd0325eb3a515b449e71ff7e735ebef, type: 3}
 --- !u!4 &1250631002
 Transform:
@@ -1955,6 +1957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 848efe82249811342948b8f67aeadff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentEnvironment: 0
   lives: 3
   score: 0
   gameOver: 0
