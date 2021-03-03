@@ -128,6 +128,7 @@ public class PlayerController : JMC
     public void RestartGame()
     {
         SceneManager.LoadScene("Prototype1");
+        Time.timeScale = 1f;
     }
 
     public void QuitGame()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class JMC : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class JMC : MonoBehaviour
     public bool IsGameOver(int _lives)
     {
         return _lives == 0;
+    }
+
+    public void FadeSprite(SpriteRenderer _sr, float _toValue, float _duration)
+    {
+        _sr.DOFade(_toValue, _duration);
     }
 
     /// <summary>

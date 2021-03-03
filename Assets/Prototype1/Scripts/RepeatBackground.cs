@@ -7,8 +7,11 @@ public class RepeatBackground : JMC
 {
     private Vector3 startPos;
     private float repeatWidth;
-    public Sprite citySprite;
     SpriteRenderer mySpriteRenderer;
+
+    //Both enviroments running on top of eachother, fade the top one out (change the layer order in inspector)
+    //RESET TIMER ON RESTART
+
 
     void Start()
     {
@@ -21,16 +24,7 @@ public class RepeatBackground : JMC
     {
         if(transform.position.x < startPos.x - repeatWidth)
         {
-            if(_GM1.currentEnvironment == GameManager.CurrentEnvironment.FORREST)
-            {
-                transform.position = startPos;
-            }
-            else
-            {
-                mySpriteRenderer.sprite = citySprite;
-                transform.position = startPos;
-            }
-            
+            transform.position = startPos;
         }
     }
 }

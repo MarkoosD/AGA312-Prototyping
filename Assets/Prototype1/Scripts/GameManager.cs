@@ -24,6 +24,9 @@ namespace Prototype1
         public float obstacleSpeed = 10f;
         public float increaseRate;
 
+        public SpriteRenderer forrestSprite;
+        public SpriteRenderer citySprite;
+
 
         private void Start()
         {
@@ -38,8 +41,11 @@ namespace Prototype1
 
         IEnumerator ChangeEnvironment()
         {
-            yield return new WaitForSeconds(20);
+            //fade to next environment, then back to first one once you reach the last 
+            yield return new WaitForSeconds(10);
             currentEnvironment = CurrentEnvironment.CITY;
+            FadeSprite(forrestSprite, 0, 2f);
+            FadeSprite(citySprite, 1, 2f);
             StopCoroutine("ChangeEnvironment");
         }
     }
