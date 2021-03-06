@@ -5,13 +5,15 @@ using UnityEngine;
 
 namespace Prototype1
 {
-    
+
     public class GameManager : Singleton<GameManager>
     {
         public enum CurrentEnvironment
         {
             FORREST,
+            TOWN,
             CITY
+
         }
 
         public CurrentEnvironment currentEnvironment;
@@ -26,6 +28,7 @@ namespace Prototype1
 
         public SpriteRenderer forrestSprite;
         public SpriteRenderer citySprite;
+        public SpriteRenderer townSprite;
 
 
         private void Start()
@@ -43,10 +46,27 @@ namespace Prototype1
         {
             //fade to next environment, then back to first one once you reach the last 
             yield return new WaitForSeconds(10);
-            currentEnvironment = CurrentEnvironment.CITY;
-            FadeSprite(forrestSprite, 0, 2f);
-            FadeSprite(citySprite, 1, 2f);
-            StopCoroutine("ChangeEnvironment");
+            if (!gameOver)
+            {
+                currentEnvironment = CurrentEnvironment.CITY;
+                FadeSprite(forrestSprite, 0, 2f);
+                FadeSprite(citySprite, 1, 2f);
+                yield return new WaitForSeconds(10);
+                if (!gameOver)
+                {
+                    currentEnvironment = CurrentEnvironment.TOWN;
+                    FadeSprite(citySprite, 0, 2f);
+                    FadeSprite(townSprite, 1, 2f);
+                    yield return new WaitForSeconds(10);
+                    if (!gameOver)
+                    {
+                        currentEnvironment = CurrentEnvironment.FORREST;
+                        FadeSprite(townSprite, 0, 2f);
+                        FadeSprite(forrestSprite, 1, 2f);
+                        StartCoroutine("ChangeEnvironment");
+                    }
+                }
+            }
         }
     }
 }

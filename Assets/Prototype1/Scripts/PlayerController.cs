@@ -14,6 +14,7 @@ public class PlayerController : JMC
     public ParticleSystem dirtParticle;
     public AudioClip jumpSound;
     public AudioClip crashSound;
+    public AudioClip coinSound;
     public float jumpForce = 10f;
     public float gravityModifier;
     public bool isOnGround = true;
@@ -39,8 +40,8 @@ public class PlayerController : JMC
 
     void Update()
     {
-        if(!_GM1.gameOver)
-        timerText.text = (Time.time.ToString("f2"));
+        if (!_GM1.gameOver)
+            timerText.text = (Time.timeSinceLevelLoad.ToString("f2"));
 
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -58,7 +59,7 @@ public class PlayerController : JMC
             isOnGround = false;
             playerAnim.SetTrigger("Jump_trig");
             dirtParticle.Stop();
-            playerAudio.PlayOneShot(jumpSound, 1.0f);
+            playerAudio.PlayOneShot(jumpSound, 0.6f);
         }
     }
 
@@ -70,12 +71,14 @@ public class PlayerController : JMC
             _GM1.score++;
             Destroy(collision.gameObject);
             scoreText.text = ("Score: " + _GM1.score);
+            playerAudio.PlayOneShot(coinSound, 1f);
         }
 
         if(collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
-            dirtParticle.Play();
+            if (_GM1.gameOver == false)
+                dirtParticle.Play();
         } else if (collision.gameObject.CompareTag("Obstacle"))
         {
             if(isInvincible)
@@ -89,7 +92,7 @@ public class PlayerController : JMC
                 playerAnim.SetInteger("DeathType_int", 1);
                 explosionParticle.Play();
                 dirtParticle.Stop();
-                playerAudio.PlayOneShot(crashSound, 1.0f);
+                playerAudio.PlayOneShot(crashSound, 0.6f);
             }    
             
         }

@@ -9,10 +9,6 @@ public class RepeatBackground : JMC
     private float repeatWidth;
     SpriteRenderer mySpriteRenderer;
 
-    //Both enviroments running on top of eachother, fade the top one out (change the layer order in inspector)
-    //RESET TIMER ON RESTART
-
-
     void Start()
     {
         startPos = transform.position;
