@@ -25,6 +25,11 @@ public class JMC : MonoBehaviour
         _sr.DOFade(_toValue, _duration);
     }
 
+    public void FadeCanvas(CanvasGroup _cg, float _toValue, float _duration)
+    {
+        _cg.DOFade(_toValue, _duration);
+    }
+
     /// <summary>
     /// Works out the change in percentage between two scores
     /// </summary>
